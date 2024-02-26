@@ -163,7 +163,7 @@ def fmap_maybe(maybe: Maybe, function: typing.Callable) -> Maybe:
 
     if maybe.is_just():
         maybe_val: typing.Any = copy.deepcopy(maybe.value)
-        new_maybe_val = function(maybe_val)
+        new_maybe_val: Maybe = function(maybe_val)
         return Maybe(new_maybe_val)
     elif maybe.is_nothing():
         return Maybe(None, maybe = "nothing")
