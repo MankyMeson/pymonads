@@ -59,6 +59,19 @@ def bind_record(record: Record, function: typing.Callable) -> Record:
     )
 
 
+def fmap_record(record: Record, function: typing.Callable) -> Record:
+    fn_type_signature = typing.signature(function)
+    return_t: type = fn_type_signature.return_annotation
+
+    if len(fn_type_signature.parameters) != 1:
+        raise TypeError("Function has too many arguments.")
+
+    Return Record(
+        value = function(record.value),
+        log = record.log
+    )
+
+
 # Example functions.
 if __name__=="__main__":
 
