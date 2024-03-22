@@ -21,6 +21,7 @@ class IO:
 
 
 def return_io(value: typing.Any) -> IO:
+
     return IO(value)
 
 
@@ -51,14 +52,23 @@ def bind_io(io_monad: IO, function: typing.Callable) -> IO:
 class IODiff:
 
 
-    def __init__(self, unit, out_buffer = "", in_buffer = ""):
+    def __init__(self, unit, out_buffer = "", in_buffer = "") -> None:
         self.unit: int = unit
         self.out_buffer: str = out_buffer
         self.in_buffer: str = in_buffer
 
 
     def resolve(self, new_environment: IODiff) -> list[IODiff]:
+
         return resolve_io_diff(self, new_environment)
+
+
+    def write_out_buffer(self) -> None:
+        if self.unit == 1:
+            print(self.out_buffer)
+            self.out_buffer = ""
+        else:
+            pass
 
 
 def resolve_io_diff(old_environment: IODiff, new_environment: IODiff) -> list[IODiff]:
@@ -75,3 +85,19 @@ def resolve_io_diff(old_environment: IODiff, new_environment: IODiff) -> list[IO
             in_buffer = old_environment.in_buffer + new_environment.in_buffer,
         )
     ]
+
+
+class FileDict:
+
+
+    def __init__():
+        self.unit_dict = {}
+
+
+    def associate(self, unit: int, fname: str) -> None:
+        self.unit_dict[unit] = fname
+
+
+def open(unit: int, fname: str, status: str) -> None:
+    pass
+

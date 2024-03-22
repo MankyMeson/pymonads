@@ -66,7 +66,7 @@ def fmap_record(record: Record, function: typing.Callable) -> Record:
     if len(fn_type_signature.parameters) != 1:
         raise TypeError("Function has too many arguments.")
 
-    Return Record(
+    return Record(
         value = function(record.value),
         log = record.log
     )

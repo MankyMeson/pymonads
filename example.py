@@ -13,7 +13,7 @@ def main():
     """
     Demonstrates the use of a maybe monad and a do function for listing binds.
     """
-    q = Quadratic(4,2,1)
+    q = Quadratic(1,2,1)
     print(
         "Quadratic equation solver:\n"
         "Solving equation " + str(q)
@@ -31,11 +31,19 @@ class Quadratic:
 
 
     def __str__(self) -> str:
-        b_sign, c_sign = "-", "-", "-"
+        b_sign, c_sign = "-", "-"
         if self.b >= 0: b_sign: str = "+"
         if self.c >= 0: c_sign: str = "+"
+        if self.a == 1:
+            a_str = ""
+        else:
+            a_str = str(self.a)
+        if self.b == 1:
+            b_str = ""
+        else:
+            b_str = str(self.b)
 
-        format_vars = a, b_sign, b, c_sign, c
+        format_vars = a_str, b_sign, b_str, c_sign, self.c
         if self.a >= 0:
             return "{}x^2 {} {}x {} {} = 0".format(*format_vars)
         else:
@@ -46,18 +54,8 @@ class Quadratic:
         return self.b**2 - 4 * self.a * self.c
 
 
-    def roots(self):
-        one_over_2a = -0.5 / self.a
-        if self.discriminant < 0:
-            return None
-        elif self.discriminant == 0 or (self.discriminant < EPSILON and self.discriminant > 0):
-            return -0.5 * self.b / self.a
-        elif self.discriminant > 0:
-            return -0.5 * (self.b + math.sqrt(discriminant)) / self.a, -0.5 * (self.b - math.sqrt(discriminant)) / self.a
-
-
-def quadratic_roots(eqn: Quadtratic) -> Maybe:
-    half_inv_a = 0.5 / self.a
+def quadratic_roots(eqn: Quadratic) -> Maybe:
+    half_inv_a = 0.5 / eqn.a
     if eqn.discriminant < 0.:
         return Maybe(
             value = None,

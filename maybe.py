@@ -28,7 +28,7 @@ class Maybe:
         Raises:
             RuntimeError: Incorrect state string given to the program.
         """
-        if mabye not in Maybe.MAYBE_STATES:
+        if maybe not in Maybe.MAYBE_STATES:
             raise RuntimeError("Given maybe state must be one of {}".format(", ".join(MAYBE_STATES)))
 
         self.maybe: str = maybe
